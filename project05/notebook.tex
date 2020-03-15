@@ -1,0 +1,932 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ads}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Snapchat Political Ads}\label{snapchat-political-ads}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{See the main project notebook for instructions to be sure you
+  satisfy the rubric!}
+\item
+  See Project 03 for information on the dataset.
+\item
+  A few example prediction questions to pursue are listed below.
+  However, don't limit yourself to them!
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Predict the reach (number of views) of an ad.
+  \item
+    Predict how much was spent on an ad.
+  \item
+    Predict the target group of an ad. (For example, predict the target
+    gender.)
+  \item
+    Predict the (type of) organization/advertiser behind an ad.
+  \end{itemize}
+\end{itemize}
+
+Be careful to justify what information you would know at the "time of
+prediction" and train your model using only those features.
+
+    \section{Summary of Findings}\label{summary-of-findings}
+
+\subsubsection{Introduction}\label{introduction}
+
+This project will focus on predicting the country of origin of an ad.
+This will be a classification problem since the goal is to predict a
+categorical variable, rather than a continuous variable. In order to
+predict the country of origin, this project will use CountryCode as the
+target variable. The objective will be to maximize the accuracy of the
+model. Given the malicious ad campaigns that have taken place in the US
+by foreign governments, this project asks whether it is feasible to know
+where an ad originated from, with only knowing some basic information of
+the ad. For the purpose of addressing this question we will exclude
+billing address from the data as well.
+
+\subsubsection{Baseline Model}\label{baseline-model}
+
+For a baseline model I decided to first clean up my data a little. I
+first filled null values with their appropriate meanings based on
+snapchat's readme file for the data. As well, I excluded columns that
+had over 95\% null values as I do not think they would provide a better
+prediction. I ended up using 16 feature variables. Of the 16, 14 of the
+features were nominal and 2 features were quantitative. As a baseline
+model, I decided to one hot encode all of the features except the two
+quantitative features. I used a Random Forest Classifier and was able to
+achieve an average accuracy of approximately 63\%. I used cross
+validation as well as an accuracy score based on a held out test sample
+of the data to make sure my accuracy was consistent. For a baseline
+model, I feel this is a decent outcome since it is better than just
+randomly guessing the country of origin. Also, it is decently high for
+just one hot encoding the original features, so I believe there is a lot
+of room for improvement.
+
+\subsubsection{Final Model}\label{final-model}
+
+I ended up adding two new features to my data. I first chose to create a
+column called Days which calculates the time the ad was shown on
+snapchat by subtracting the start date from the end date. I think this
+column might be helpful in predictions in case there are associations
+with the length of time an ad is shown and the country the ad is from.
+Also, I wanted to make better use of my start date and end date data,
+rather than just one hot encoding them.
+
+I also changed the age bracket column to include only 5 different
+groups. I did this because originally the age bracket column contained
+all sorts of values and in different formats. I thought this column
+might have an association with the country of origin so I used regex to
+extract the age groups and bin the ages into fewer categories. This also
+works better for using one hot encoding.
+
+I ended up choosing a random forest classifier model for my data. I also
+tried a k nearest neighbor approach, but the results were not nearly as
+good. I ran grid search on my random forest model and ended up finding
+the best features to be: 'criterion': 'gini','max\_depth':
+10,'max\_features': 'sqrt','min\_samples\_leaf': 1,
+'min\_samples\_split': 3,'n\_estimators': 100. My method of model
+selection included evaluating two different classifiers, random forest
+and knn, then performing grid search on both and calculating accuracy
+scores based on cross validation as well as a held out test sample. What
+I found was that the random forest classifier outperformed the knn
+classifier by over 20\%. In the end I was able to improve my baseline
+model by slightly over 10\% up to around 74\% accuracy.
+
+\subsubsection{Fairness Evaluation}\label{fairness-evaluation}
+
+To evaluate fairness I split my dataset into two subsets. The data is
+split by impressions with one subset being the ads with number of
+impressions that are below the median number of impressions for all ads.
+The other subset is ads with number of impressions that are equal to or
+greater than the median number of impressions for all ads. Since my
+target variable is categorical, it does not make sense to choose a
+parity measure, so I used accuracy. I then performed a permutation test
+between my two subsets and used the absolute difference of means for my
+test statistic. My hypotheses are outlined below:
+
+\textbf{Null Hypothesis:} The model predicts with the same accuracy for
+ads with high number of impressions as ads with low number of
+impressions.
+
+\textbf{Alternative Hypothesis:} The model predicts with a different
+accuracy for ads with a high number of impressions as ads with low
+number of impressions.
+
+\textbf{Note:} We define high number of impressions to be ads with
+impressions equal to or greater than the median impressions for all ads,
+and low number of impressions is ads with impressions less than the
+median.
+
+\textbf{Decision:} We will set a significance level of .05. So we will
+reject the null hypothesis for a p value less than .05 and fail to
+reject the null hypothesis if it is greater than .05.
+
+After running my hypothesis test I got a p value of .43 so I fail to
+reject my null hypothesis. Thus, between ads with high number of
+impressions and low number of impressions my model predicts both groups
+fairly equally.
+
+    \section{Code}\label{code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}166}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{os}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}format = \PYZsq{}retina\PYZsq{}  \PYZsh{} Higher resolution figures
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}167}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{FunctionTransformer}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{OneHotEncoder}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{compose} \PY{k}{import} \PY{n}{ColumnTransformer}
+          
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeRegressor}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsRegressor}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{make\PYZus{}scorer}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+          
+          \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+          \PY{k+kn}{import} \PY{n+nn}{re}
+\end{Verbatim}
+
+
+    \subsubsection{Baseline Model}\label{baseline-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{c+c1}{\PYZsh{} Importing the data }
+          \PY{n}{ads\PYZus{}fp} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliticalAds2018.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ads2018} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{ads\PYZus{}fp}\PY{p}{)}
+          \PY{n}{ads\PYZus{}fp} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PoliticalAds2019.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ads2019} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{ads\PYZus{}fp}\PY{p}{)}
+          \PY{n}{ads} \PY{o}{=} \PY{n}{ads2018}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ads2019}\PY{p}{)}
+          \PY{n}{orig\PYZus{}ads} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    First some basic cleaning
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{c+c1}{\PYZsh{} Replacing null values with actual value the null is representing}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AgeBracket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AgeBracket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Interests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Interests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Language}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Language}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CandidateBallotInformation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CandidateBallotInformation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}
+                                               \PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Regions (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Regions (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radius Targeting (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radius Targeting (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}
+                                                \PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Postal Codes (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Postal Codes (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}
+                                            \PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EndDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EndDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ONGOING}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{c+c1}{\PYZsh{} Dropping columns that have over 95 \PYZpc{} null values}
+          \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Regions (Excluded)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Electoral Districts (Excluded)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Electoral Districts (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radius Targeting (Excluded)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Metros (Excluded)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Metros (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Postal Codes (Excluded)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Location Categories (Excluded)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Location Categories (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OsType}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AdvancedDemographics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Targeting Connection Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Targeting Carrier (ISP)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CreativeUrl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CreativeProperties}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{ads} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{cols}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Drop ADID since it is a unique value for each ad}
+          \PY{n}{ads} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ADID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Dropping billing address since the point of the model is to predict }
+          \PY{c+c1}{\PYZsh{} origin location}
+          \PY{n}{ads} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BillingAddress}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{c+c1}{\PYZsh{} Choosing baseline features to use and creating a transformer to hold }
+          \PY{c+c1}{\PYZsh{} those features}
+          \PY{n}{transformer} \PY{o}{=} \PY{n}{ColumnTransformer}\PY{p}{(}\PY{p}{[}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}curr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Currency Code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StartDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}end}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EndDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrganizationName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}cand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CandidateBallotInformation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}pay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PayingAdvertiserName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AgeBracket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}regions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Regions (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}radius}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radius Targeting (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}postal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Postal Codes (Included)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Interests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}seg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one\PYZus{}hot\PYZus{}lan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{handle\PYZus{}unknown}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+               \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Language}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{p}{]}\PY{p}{,} \PY{n}{remainder}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passthrough}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{c+c1}{\PYZsh{} Creating a pipeline to process transformations and execute random }
+          \PY{c+c1}{\PYZsh{} forest tree}
+          \PY{n}{pl} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transformations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transformer}\PY{p}{)}\PY{p}{,}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                          \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                          \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} 
+                          \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} 
+                          \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+          \PY{p}{]}\PY{p}{)}
+          \PY{n}{scores} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the X and y data}
+          \PY{n}{X} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} Getting the training and testing data}
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Fitting the data}
+          \PY{n}{pl}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}
+              \PY{n}{pl}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}223}]:} \{'test\_accuracy': 0.6065573770491803,
+           'validation\_accuracy': 0.6293969443457476\}
+\end{Verbatim}
+            
+    First let's add some features
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{c+c1}{\PYZsh{} Replacing \PYZsq{}EndDate\PYZsq{} null values with the current date to represent }
+          \PY{c+c1}{\PYZsh{} they are still running the ad}
+          \PY{n}{replace} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EndDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{orig\PYZus{}ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EndDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{replace}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Using \PYZsq{}StartDate\PYZsq{} and EndDate to create a column \PYZsq{}Days\PYZsq{} that denotes }
+          \PY{c+c1}{\PYZsh{} the number of days the ad has been showing}
+          \PY{n}{duration} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EndDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}
+              \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StartDate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{days}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Days}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{duration}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{k}{def} \PY{n+nf}{bin\PYZus{}ages}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{elif} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{18} \PY{o}{\PYZam{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nums}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{40}\PY{p}{:}
+                      \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{young\PYZus{}adult}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{40}\PY{p}{:}
+                      \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adult}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{elif} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{18} \PY{o}{\PYZam{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nums}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adult}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{elif} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{18} \PY{o}{\PYZam{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nums}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{18}\PY{p}{:}
+                      \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{child}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{18} \PY{o}{\PYZam{}} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{40}\PY{p}{:}
+                      \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{child\PYZus{}young\PYZus{}adult}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{18} \PY{o}{\PYZam{}} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{40}\PY{p}{:}
+                      \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{elif} \PY{n+nb}{int}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{18} \PY{o}{\PYZam{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{nums}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{child}\PY{l+s+s1}{\PYZsq{}}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adult}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s clean up and categorize the age brackets into child (\PYZlt{}18), }
+          \PY{c+c1}{\PYZsh{} young adult (\PYZgt{}18 and \PYZlt{} 40), adult (\PYZgt{}18 and \PYZgt{}40), child young }
+          \PY{c+c1}{\PYZsh{} adult (\PYZlt{}18 and \PYZlt{}40), and all }
+          \PY{n}{brackets} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AgeBracket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{d+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{)}
+          \PY{n}{brackets} \PY{o}{=} \PY{n}{brackets}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{bin\PYZus{}ages}\PY{p}{)}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AgeBracket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{brackets}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{c+c1}{\PYZsh{} Using the same transformer as above, but now we have the two }
+          \PY{c+c1}{\PYZsh{} added features to build a pipeline}
+          \PY{c+c1}{\PYZsh{} Creating a pipeline to process transformations and execute }
+          \PY{c+c1}{\PYZsh{} random forest tree}
+          \PY{n}{pl} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transformations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transformer}\PY{p}{)}\PY{p}{,}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                          \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                          \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} 
+                          \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} 
+                          \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+          \PY{p}{]}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the X and y data along with training and testing data}
+          \PY{n}{X} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} 
+                                                              \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Fitting the data}
+          \PY{n}{pl}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+          \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}238}]:} 0.6463700234192038
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{k+kn}{import} \PY{n+nn}{warnings}
+          \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Let\PYZsq{}s run grid search to find the best model fit}
+          \PY{n}{parameters1} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf\PYZus{}\PYZus{}n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{95}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf\PYZus{}\PYZus{}max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf\PYZus{}\PYZus{}criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf\PYZus{}\PYZus{}min\PYZus{}samples\PYZus{}split}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf\PYZus{}\PYZus{}min\PYZus{}samples\PYZus{}leaf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}
+                       \PY{p}{\PYZcb{}}
+          \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pl}\PY{p}{,} \PY{n}{parameters1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{grid} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{c+c1}{\PYZsh{} Best parameters}
+          \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:} \{'rf\_\_criterion': 'gini',
+           'rf\_\_max\_depth': 10,
+           'rf\_\_max\_features': 'auto',
+           'rf\_\_min\_samples\_leaf': 1,
+           'rf\_\_min\_samples\_split': 3,
+           'rf\_\_n\_estimators': 100\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{c+c1}{\PYZsh{} Now lets take the best parameters and use them in our model}
+          \PY{n}{pl} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transformations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transformer}\PY{p}{)}\PY{p}{,}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                          \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                          \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} 
+                          \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} 
+                          \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+          \PY{p}{]}\PY{p}{)}
+          \PY{n}{scores} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the X and y data}
+          \PY{n}{X} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} Getting the training and testing data}
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Fitting the data}
+          \PY{n}{pl}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}
+              \PY{n}{pl}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}201}]:} \{'test\_accuracy': 0.7540983606557377,
+           'validation\_accuracy': 0.7425667818727995\}
+\end{Verbatim}
+            
+    Impressively, just by adding our two new features and running Grid
+Search cross validation we are able to consistently improve our model by
+over 10 percentage points in accuracy.
+
+    Let's try a different classifier now
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{c+c1}{\PYZsh{} Trying knn}
+          \PY{n}{pl} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transformations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transformer}\PY{p}{)}\PY{p}{,}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{p}{]}\PY{p}{)}
+          \PY{n}{scores} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the X and y data}
+          \PY{n}{X} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} Getting the training and testing data}
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Fitting the data}
+          \PY{n}{pl}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}
+              \PY{n}{pl}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}202}]:} \{'test\_accuracy': 0.419984387197502, 'validation\_accuracy': 0.4385737767872204\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s use grid search to see if we can improve it}
+          \PY{n}{parameters2} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn\PYZus{}\PYZus{}n\PYZus{}neighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn\PYZus{}\PYZus{}weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn\PYZus{}\PYZus{}algorithm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ball\PYZus{}tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kd\PYZus{}tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brute}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn\PYZus{}\PYZus{}leaf\PYZus{}size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{35}\PY{p}{]}\PY{p}{,}\PY{p}{\PYZcb{}}
+          \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pl}\PY{p}{,} \PY{n}{parameters2}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{grid} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}139}]:} \{'knn\_\_algorithm': 'auto',
+           'knn\_\_leaf\_size': 25,
+           'knn\_\_n\_neighbors': 11,
+           'knn\_\_weights': 'uniform'\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}239}]:} \PY{c+c1}{\PYZsh{} Using the found parameters}
+          \PY{n}{pl} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transformations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transformer}\PY{p}{)}\PY{p}{,}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{algorithm}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                             \PY{n}{leaf\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,}
+                                             \PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{,}
+                                             \PY{n}{weights}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{p}{]}\PY{p}{)}
+          \PY{n}{scores} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the X and y data}
+          \PY{n}{X} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} Getting the training and testing data}
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Fitting the data}
+          \PY{n}{pl}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}
+              \PY{n}{pl}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}239}]:} \{'test\_accuracy': 0.4769711163153786,
+           'validation\_accuracy': 0.48912405654790747\}
+\end{Verbatim}
+            
+    Not able to get very good results using knn
+
+    \subsubsection{Fairness Evaluation}\label{fairness-evaluation}
+
+    Now that we have our model let's evaluate the performance on two subsets
+of the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{c+c1}{\PYZsh{} Using the median to split the ads into two subsets}
+          \PY{n}{med} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+          \PY{n}{low\PYZus{}ads} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{med}\PY{p}{]}
+          \PY{n}{high\PYZus{}ads} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{med}\PY{p}{]}
+          \PY{n}{X} \PY{o}{=} \PY{n}{ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{c+c1}{\PYZsh{} Now lets find the accuracy of low and high by retraining the model}
+          \PY{n}{scores} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+          \PY{n}{pl} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transformations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transformer}\PY{p}{)}\PY{p}{,}
+                  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                          \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                          \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} 
+                          \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} 
+                          \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+          \PY{p}{]}\PY{p}{)}
+          \PY{n}{pl}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Getting the X and y data }
+          \PY{n}{X} \PY{o}{=} \PY{n}{low\PYZus{}ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{low\PYZus{}ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+          \PY{n}{accuracy} \PY{o}{=} \PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{accuracy}
+          
+          \PY{c+c1}{\PYZsh{} Now find accuracy of high}
+          \PY{c+c1}{\PYZsh{} Getting the X and y data }
+          \PY{n}{X} \PY{o}{=} \PY{n}{high\PYZus{}ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{high\PYZus{}ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+          \PY{n}{accuracy} \PY{o}{=} \PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{accuracy}
+          \PY{n}{scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}217}]:} \{'high': 0.7478912839737581, 'low': 0.7221180880974696\}
+\end{Verbatim}
+            
+    Now we will perform a permutation test on the high and low data to see
+if there is a significant difference between the accuracies. I will
+define my test statistic as the absolute difference in accuracy.
+
+\textbf{Null Hypothesis:} The model predicts with the same accuracy for
+ads with high number of impressions as ads with low number of
+impressions.
+
+\textbf{Alternative Hypothesis:} The model predicts with a different
+accuracy for ads with a high number of impressions as ads with low
+number of impressions.
+
+\textbf{Note:} We define high number of impressions to be ads with
+impressions equal to or greater than the median impressions for all ads,
+and low number of impressions is ads with impressions less than the
+median.
+
+\textbf{Decision:} We will set a significance level of .05. So we will
+reject the null hypothesis for a p value less than .05 and fail to
+reject the null hypothesis if it is greater than .05.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{n}{obs} \PY{o}{=} \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} adding a column called level which indicates if impressions is }
+          \PY{c+c1}{\PYZsh{} low or high}
+          \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}
+              \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{med} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          
+          \PY{n}{n\PYZus{}repetitions} \PY{o}{=} \PY{l+m+mi}{100}
+          \PY{n}{stats} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}repetitions}\PY{p}{)}\PY{p}{:}
+              \PY{n}{shuffled\PYZus{}impres} \PY{o}{=} \PY{p}{(}
+                  \PY{n}{ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{frac}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{p}{)}
+          
+              \PY{n}{shuffled} \PY{o}{=} \PY{p}{(}
+                  \PY{n}{ads}
+                  \PY{o}{.}\PY{n}{assign}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{shuffled\PYZus{}impres}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Dropping the level column now that we\PYZsq{}re done shuffling}
+              \PY{n}{shuffled} \PY{o}{=} \PY{n}{shuffled}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} Separating the data into low and high}
+              \PY{n}{med} \PY{o}{=} \PY{n}{shuffled}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+              \PY{n}{low\PYZus{}ads} \PY{o}{=} \PY{n}{shuffled}\PY{p}{[}\PY{n}{shuffled}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{med}\PY{p}{]}
+              \PY{n}{high\PYZus{}ads} \PY{o}{=} \PY{n}{shuffled}\PY{p}{[}\PY{n}{shuffled}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Impressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{med}\PY{p}{]}
+          
+              \PY{c+c1}{\PYZsh{} Computing the accuracy for low}
+              \PY{n}{X} \PY{o}{=} \PY{n}{low\PYZus{}ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{y} \PY{o}{=} \PY{n}{low\PYZus{}ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+              \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+              \PY{n}{accuracy} \PY{o}{=} \PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{accuracy}
+          
+              \PY{c+c1}{\PYZsh{} Now find accuracy of high}
+              \PY{n}{X} \PY{o}{=} \PY{n}{high\PYZus{}ads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{y} \PY{o}{=} \PY{n}{high\PYZus{}ads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CountryCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} Fitting the data}
+              \PY{n}{pl}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Getting the accuracy score}
+              \PY{n}{accuracy} \PY{o}{=} \PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{pl}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{accuracy}
+              \PY{n}{stats}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{(}\PY{n}{stats} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{obs}\PY{p}{)} \PY{o}{/} \PY{n}{n\PYZus{}repetitions}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}209}]:} 0.43
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
